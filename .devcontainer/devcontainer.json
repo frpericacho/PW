@@ -1,0 +1,35 @@
+{
+  "name": "PW",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "php",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "php.suggest.basic": false,
+    "editor.quickSuggestions": {
+      "comments": true
+    },
+    "intelephense.files.exclude": [
+      "**/.git/**",
+      "**/.svn/**",
+      "**/.hg/**",
+      "**/CVS/**",
+      "**/.DS_Store/**",
+      "**/node_modules/**",
+      "**/bower_components/**",
+      "**/vendor/**/{Test,test,Tests,tests}/**/*Test.php"
+    ],
+    "php-cs-fixer.rules": "@PhpCsFixer",
+    "[php]": {
+      "editor.defaultFormatter": "junstyle.php-cs-fixer",
+      "editor.formatOnSave": true
+    }
+  },
+  "remoteUser": "vscode",
+  "extensions": [
+    "phproberto.vscode-php-getters-setters",
+    "junstyle.php-cs-fixer",
+    "neilbrayfield.php-docblocker",
+    "felixfbecker.php-debug",
+    "felixfbecker.php-intellisense"
+  ]
+}
