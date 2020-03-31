@@ -8,24 +8,24 @@
 
 			<select name=asignatura>
 				<?php
+				
+				$mysqli=mysqli_connect('localhost','root','','pw');
+				
+				$titulacion=$_POST["titulacion"];
 
-                $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
-
-                $titulacion = $_POST['titulacion'];
-
-                $consulta = "select * from asignatura where {$titulacion}=titulacion";
-
-                $extraccion = mysqli_query($mysqli, $consulta);
-
-                $n = mysqli_num_rows($extraccion);
-
-                if ($n > 0) {
-                    for ($i = 0; $i < $n; ++$i) {
-                        $row = mysqli_fetch_array($extraccion);
-                        echo '<option value='.$row['id'].'>'.$row['nombre_asig'].'</option>';
-                    }
-                }
-                ?>
+				$consulta="select * from asignatura where $titulacion=titulacion";
+				
+				$extraccion=mysqli_query($mysqli,$consulta);
+				
+				$n=mysqli_num_rows($extraccion);
+				
+				if($n>0){
+					for($i=0;$i<$n;$i++){
+						$row=mysqli_fetch_array($extraccion);
+							echo '<option value='.$row['id'].'>'.$row['nombre_asig'].'</option>';
+					}
+				}
+				?>
 			</select><br>
 
 			<br>Introduzca un grupo:

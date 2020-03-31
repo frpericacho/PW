@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-03-2020 a las 17:48:05
+-- Tiempo de generación: 30-03-2020 a las 14:24:49
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.3
 
@@ -57,8 +57,28 @@ CREATE TABLE `alumnos` (
   `interes` varchar(30) DEFAULT NULL,
   `tutorias` varchar(30) DEFAULT NULL,
   `dificultad` varchar(30) DEFAULT NULL,
-  `nota_esperada` varchar(30) DEFAULT NULL
+  `nota_esperada` varchar(30) DEFAULT NULL,
+  `asistencia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `aniomatr`
+--
+
+CREATE TABLE `aniomatr` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `aniomatr`
+--
+
+INSERT INTO `aniomatr` (`id`) VALUES
+(1718),
+(1819),
+(1920);
 
 -- --------------------------------------------------------
 
@@ -373,6 +393,56 @@ INSERT INTO `asignatura` (`id`, `nombre_asig`, `titulacion`, `curso`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `asistencia`
+--
+
+CREATE TABLE `asistencia` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `asistencia`
+--
+
+INSERT INTO `asistencia` (`id`) VALUES
+(0),
+(10),
+(20),
+(30),
+(40),
+(50),
+(60),
+(70),
+(80),
+(90),
+(100);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `calificacion`
+--
+
+CREATE TABLE `calificacion` (
+  `id` varchar(30) NOT NULL,
+  `valor` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `calificacion`
+--
+
+INSERT INTO `calificacion` (`id`, `valor`) VALUES
+('Aprobado', 2),
+('Matricula de honor', 5),
+('Notable', 3),
+('NP', 0),
+('Sobresaliente', 4),
+('Suspenso', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cuestiones`
 --
 
@@ -413,6 +483,72 @@ INSERT INTO `cuestiones` (`id`, `cuestion1`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `curso`
+--
+
+CREATE TABLE `curso` (
+  `curso_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `curso`
+--
+
+INSERT INTO `curso` (`curso_id`) VALUES
+(1),
+(2),
+(3),
+(4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dificultad`
+--
+
+CREATE TABLE `dificultad` (
+  `id` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `dificultad`
+--
+
+INSERT INTO `dificultad` (`id`) VALUES
+('alta'),
+('baja'),
+('media'),
+('muy alta');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `edad`
+--
+
+CREATE TABLE `edad` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `edad`
+--
+
+INSERT INTO `edad` (`id`) VALUES
+(17),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `encuesta`
 --
 
@@ -422,6 +558,26 @@ CREATE TABLE `encuesta` (
   `id_grupo` int(11) DEFAULT NULL,
   `id_profesor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `generico`
+--
+
+CREATE TABLE `generico` (
+  `id` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `generico`
+--
+
+INSERT INTO `generico` (`id`) VALUES
+('algo'),
+('bastante'),
+('mucho'),
+('nada');
 
 -- --------------------------------------------------------
 
@@ -441,6 +597,27 @@ INSERT INTO `grupo` (`id`) VALUES
 (1),
 (2),
 (3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `n_examinado`
+--
+
+CREATE TABLE `n_examinado` (
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `n_examinado`
+--
+
+INSERT INTO `n_examinado` (`id`) VALUES
+(0),
+(1),
+(2),
+(3),
+(4);
 
 -- --------------------------------------------------------
 
@@ -986,10 +1163,19 @@ INSERT INTO `prof_asig` (`id_asignatura`, `id_profesor`) VALUES
 (21717038, 115),
 (21718001, 172),
 (21718001, 176),
+(21718002, 94),
+(21718002, 95),
+(21718002, 96),
 (21718003, 167),
 (21718004, 80),
 (21718004, 181),
 (21718004, 182),
+(21718006, 116),
+(21718006, 117),
+(21718006, 119),
+(21718007, 173),
+(21718007, 174),
+(21718007, 175),
 (21718008, 17),
 (21718008, 27),
 (21718008, 56),
@@ -1073,8 +1259,27 @@ INSERT INTO `prof_asig` (`id_asignatura`, `id_profesor`) VALUES
 CREATE TABLE `respuestas` (
   `respuesta` int(11) DEFAULT NULL,
   `id_cuestion` int(11) DEFAULT NULL,
-  `id_estudiante` int(11) DEFAULT NULL
+  `id_estudiante` int(11) DEFAULT NULL,
+  `id_profesor` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sexo`
+--
+
+CREATE TABLE `sexo` (
+  `nombre` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `sexo`
+--
+
+INSERT INTO `sexo` (`nombre`) VALUES
+('hombre'),
+('mujer');
 
 -- --------------------------------------------------------
 
@@ -1107,6 +1312,23 @@ INSERT INTO `titulacion` (`id`, `cod_titulacion`) VALUES
 -- Indices de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alumnos_ibfk_1` (`edad`),
+  ADD KEY `alumnos_ibfk_2` (`sexo`),
+  ADD KEY `alumnos_ibfk_3` (`curso_alto`),
+  ADD KEY `alumnos_ibfk_4` (`curso_bajo`),
+  ADD KEY `alumnos_ibfk_5` (`aniomatr`),
+  ADD KEY `alumnos_ibfk_6` (`n_examinado`),
+  ADD KEY `alumnos_ibfk_7` (`interes`),
+  ADD KEY `alumnos_ibfk_8` (`tutorias`),
+  ADD KEY `alumnos_ibfk_9` (`dificultad`),
+  ADD KEY `alumnos_ibfk_10` (`nota_esperada`),
+  ADD KEY `alumnos_ibfk_11` (`asistencia`);
+
+--
+-- Indices de la tabla `aniomatr`
+--
+ALTER TABLE `aniomatr`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1117,24 +1339,67 @@ ALTER TABLE `asignatura`
   ADD KEY `titulacion` (`titulacion`);
 
 --
+-- Indices de la tabla `asistencia`
+--
+ALTER TABLE `asistencia`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `calificacion`
+--
+ALTER TABLE `calificacion`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `cuestiones`
 --
 ALTER TABLE `cuestiones`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `curso`
+--
+ALTER TABLE `curso`
+  ADD PRIMARY KEY (`curso_id`);
+
+--
+-- Indices de la tabla `dificultad`
+--
+ALTER TABLE `dificultad`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `edad`
+--
+ALTER TABLE `edad`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `encuesta`
 --
 ALTER TABLE `encuesta`
+  ADD UNIQUE KEY `id_asignatura_2` (`id_asignatura`,`id_estudiante`,`id_grupo`,`id_profesor`),
   ADD KEY `id_profesor` (`id_profesor`),
   ADD KEY `id_asignatura` (`id_asignatura`),
   ADD KEY `id_grupo` (`id_grupo`),
   ADD KEY `id_estudiante` (`id_estudiante`);
 
 --
+-- Indices de la tabla `generico`
+--
+ALTER TABLE `generico`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `grupo`
 --
 ALTER TABLE `grupo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `n_examinado`
+--
+ALTER TABLE `n_examinado`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1155,8 +1420,15 @@ ALTER TABLE `prof_asig`
 -- Indices de la tabla `respuestas`
 --
 ALTER TABLE `respuestas`
-  ADD UNIQUE KEY `id_cuestion` (`id_cuestion`,`id_estudiante`),
-  ADD KEY `id_estudiante` (`id_estudiante`);
+  ADD UNIQUE KEY `id_cuestion` (`id_cuestion`,`id_estudiante`,`id_profesor`),
+  ADD KEY `respuestas_ibfk_2` (`id_estudiante`),
+  ADD KEY `respuestas_ibfk_3` (`id_profesor`);
+
+--
+-- Indices de la tabla `sexo`
+--
+ALTER TABLE `sexo`
+  ADD PRIMARY KEY (`nombre`);
 
 --
 -- Indices de la tabla `titulacion`
@@ -1172,7 +1444,7 @@ ALTER TABLE `titulacion`
 -- AUTO_INCREMENT de la tabla `alumnos`
 --
 ALTER TABLE `alumnos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor`
@@ -1183,6 +1455,22 @@ ALTER TABLE `profesor`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `alumnos`
+--
+ALTER TABLE `alumnos`
+  ADD CONSTRAINT `alumnos_ibfk_1` FOREIGN KEY (`edad`) REFERENCES `edad` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_10` FOREIGN KEY (`nota_esperada`) REFERENCES `calificacion` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_11` FOREIGN KEY (`asistencia`) REFERENCES `asistencia` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_2` FOREIGN KEY (`sexo`) REFERENCES `sexo` (`nombre`),
+  ADD CONSTRAINT `alumnos_ibfk_3` FOREIGN KEY (`curso_alto`) REFERENCES `curso` (`curso_id`),
+  ADD CONSTRAINT `alumnos_ibfk_4` FOREIGN KEY (`curso_bajo`) REFERENCES `curso` (`curso_id`),
+  ADD CONSTRAINT `alumnos_ibfk_5` FOREIGN KEY (`aniomatr`) REFERENCES `aniomatr` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_6` FOREIGN KEY (`n_examinado`) REFERENCES `n_examinado` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_7` FOREIGN KEY (`interes`) REFERENCES `generico` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_8` FOREIGN KEY (`tutorias`) REFERENCES `generico` (`id`),
+  ADD CONSTRAINT `alumnos_ibfk_9` FOREIGN KEY (`dificultad`) REFERENCES `dificultad` (`id`);
 
 --
 -- Filtros para la tabla `asignatura`
@@ -1211,7 +1499,8 @@ ALTER TABLE `prof_asig`
 --
 ALTER TABLE `respuestas`
   ADD CONSTRAINT `respuestas_ibfk_1` FOREIGN KEY (`id_cuestion`) REFERENCES `cuestiones` (`id`),
-  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`id_estudiante`) REFERENCES `alumnos` (`id`);
+  ADD CONSTRAINT `respuestas_ibfk_2` FOREIGN KEY (`id_estudiante`) REFERENCES `alumnos` (`id`),
+  ADD CONSTRAINT `respuestas_ibfk_3` FOREIGN KEY (`id_profesor`) REFERENCES `profesor` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
