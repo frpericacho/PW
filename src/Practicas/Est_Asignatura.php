@@ -1,54 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>estadistica</title>
-</head>
-<body>
-		<form method="post" action="Est_Asignatura.php" enctype = "multipart/form-data">
-	<?php
-        if (isset($_POST['Enviar']) && 'Enviar' == $_POST['Enviar']) {
-            $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
-            $res = mysqli_query($mysqli, 'SELECT respuesta FROM respuestas WHERE respuestas.id_cuestion = '.$_POST['id'].' AND respuestas.id_estudiante = '.$_POST['id2']);
-            $media = 0;
-            $i = 0;
-            while ($row = mysqli_fetch_array($res)) {
-                if (0 != $row['respuesta']) {
-                    $media = $media + $row['respuesta'];
-                    ++$i;
+<head><title>Estadísticas Asignatura</title></head>
+	<body>
+		<?php
+            error_reporting(E_ALL & ~E_NOTICE);
+            $enviar = $_POST['Enviar'];
+
+            //Muestra la cantidad de alumnos que estudian x asignatura:
+
+            if (isset($enviar)) {
+                $conexion = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
+
+                $consulta = 'select id_estudiante from encuesta where id_asignatura='.$_POST['asignatura'].'';
+
+                $extraer = mysqli_query($conexion, $consulta);
+
+                $n = mysqli_num_rows($extraer);
+
+                $cons = 'select id_estudiante from encuesta';
+
+                $ext = mysqli_query($conexion, $cons);
+
+                $u = mysqli_num_rows($ext);
+
+                if ($n > 0) {
+                    echo "<TABLE>\n";
+                    echo "<TR>\n";
+                    echo '<TH>Estudiantes '.$_POST['asignatura']."</TH>\n";
+                    echo "<TH>Porcentaje</TH>\n";
+                    echo "<TH>Representacion grafica</TH>\n";
+                    echo "</TR>\n";
+
+                    $porcentaje = round((($n / $u) * 100), 2);
+                    echo "<TR>\n";
+                    echo "<TD CLASS='derecha'>{$n}</TD>\n";
+                    echo "<TD CLASS='derecha'>{$porcentaje} %</TD>\n";
+                    echo "<TD CLASS='izquierda'><IMG SRC='img/puntoamarillo.gif' HEIGHT='10' WIDTH='".
+                                $porcentaje * 4 ."'></TD>\n";
+                    echo "</TR>\n";
+
+                    echo'<br><br>';
+                } else {
+                    echo'No hay alumnos cursando la asignatura';
                 }
-            }
-            if (0 != $i) {
-                $media = $media / $i;
-                echo "<br>La media es {$media}<br>";
+                mysqli_close($conexion);
             } else {
-                $media = 0;
-                echo '<br> Esta pregunta no tiene ninguna respuesta.<br>';
-            }
+                ?>
+					<form method="POST" action="Est_Asignatura.php">
 
-            mysqli_close($mysqli);
-        }
-        echo 'Elige el profesor:';
-            echo '<SELECT name="id2">';
-            $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
-            $res = mysqli_query($mysqli, 'SELECT id, nombre_prof FROM profesor;');
-            while ($row = mysqli_fetch_array($res)) {
-                echo '<option value="'.$row['id'].'">'.$row['nombre_prof'].'</option>';
-            }
-            mysqli_close($mysqli);
-            echo '</SELECT><br>';
-        echo 'Elige la pregunta:';
-            echo '<SELECT name="id">';
-            $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
-            $res = mysqli_query($mysqli, 'SELECT * FROM cuestiones;');
-            while ($row = mysqli_fetch_array($res)) {
-                echo '<option value="'.$row['id'].'">'.$row['cuestion1'].'</option>';
-            }
-            mysqli_close($mysqli);
-            echo '</SELECT>';
-            echo '<input type="submit" name="Enviar" value="Enviar">';
-            echo '</form>';
+						Selecciona una asignatura:
 
-    ?>
-	
-</body>
+						<select name=asignatura>
+						<?php
+
+                            $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
+
+                $consulta = 'select * from asignatura';
+
+                $extraccion = mysqli_query($mysqli, $consulta);
+
+                $n = mysqli_num_rows($extraccion);
+
+                if ($n > 0) {
+                    for ($i = 0; $i < $n; ++$i) {
+                        $row = mysqli_fetch_array($extraccion);
+                        echo '<option value='.$row['id'].'>'.$row['id'].'->'.$row['nombre_asig'].'</option>';
+                    }
+                } ?>
+						</select><br>
+						<input type="submit" name="Enviar" value="Enviar">
+					</form>
+				<?php
+                mysqli_close($mysqli);
+            }
+                ?>
+	</body>
 </html>
