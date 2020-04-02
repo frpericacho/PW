@@ -3,13 +3,9 @@
 <head><title>Estadísticas</title></head>
 	<body>
         <?php
-            error_reporting(E_ALL & ~E_NOTICE);
-            $enviar = $_POST['Enviar'];
-
-            if (isset($enviar)) {
                 $conexion = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
 
-                $consulta = 'select id_estudiante from encuesta where id_asignatura='.$_POST['asignatura'].'';
+                $consulta = 'select id_estudiante from encuesta';
 
                 $extraer = mysqli_query($conexion, $consulta);
 
@@ -40,35 +36,6 @@
                     echo'No hay alumnos cursando la asignatura';
                 }
                 mysqli_close($conexion);
-            } else {
-                ?>
-					<form method="POST" action="EstUs_numero_total_alum.php">
-
-						Selecciona una asignatura:
-
-						<select name=asignatura>
-						<?php
-
-                            $mysqli = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
-
-                $consulta = 'select * from asignatura';
-
-                $extraccion = mysqli_query($mysqli, $consulta);
-
-                $n = mysqli_num_rows($extraccion);
-
-                if ($n > 0) {
-                    for ($i = 0; $i < $n; ++$i) {
-                        $row = mysqli_fetch_array($extraccion);
-                        echo '<option value='.$row['id'].'>'.$row['id'].'->'.$row['nombre_asig'].'</option>';
-                    }
-                } ?>
-						</select><br>
-						<input type="submit" name="Enviar" value="Enviar">
-					</form>
-				<?php
-                mysqli_close($mysqli);
-            }
-                ?>
+        ?>
 	</body>
 </html>
