@@ -3,7 +3,7 @@
 <head><title>Estadísticas</title></head>
 	<body>
         <?php
-                $conexion = mysqli_connect('db', 'root', 'adminB4sh#77#', 'pw');
+                $conexion = mysqli_connect('localhost', 'root', '', 'pw');
 
                 $consulta = 'select id_estudiante from encuesta';
 
@@ -30,7 +30,7 @@
                     echo "<TD CLASS='derecha'>{$u}</TD>\n";
                     echo "<TD CLASS='derecha'>{$porcentaje1} %</TD>\n";
                     echo "<TD CLASS='izquierda'><IMG SRC='img/puntoamarillo.gif' HEIGHT='10' WIDTH='".
-                                $porcentaje * 4 ."'></TD>\n";
+                                $porcentaje1 * 4 ."'></TD>\n";
                     echo "</TR>\n";
                 } else {
                     echo'No hay alumnos cursando la asignatura';
